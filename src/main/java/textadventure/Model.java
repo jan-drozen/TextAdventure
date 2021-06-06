@@ -59,13 +59,10 @@ abstract class AbstractContainer extends Thing implements Container{
     }
 }
 
-enum LightCondition {Light, Dark}
-
 interface StandIn extends Container{
 }
 
 abstract class Space extends AbstractContainer implements StandIn {
-    private LightCondition lightCondition;
     private List<Door> doors;
 
     public Space(String id) {
@@ -99,24 +96,11 @@ class Room extends Space {
     }
 }
 
-interface StandAt {
-}
-
-class Table extends AbstractContainer implements StandAt {
-    public Table(String id) {
-        super(id);
-    }
-
-    @Override
-    public Iterable<GameAction> getActions(GameEngine engine) {
-        return engine.getActions(this);
-    }
-}
 
 enum DoorLockState {Locked, Unlocked}
 enum DoorState {Open,Closed}
 
-class Door extends Thing implements StandAt {
+class Door extends Thing {
     private Space from;
     private DoorLockState lockState;
     private final Key compatibleKey;
@@ -174,31 +158,6 @@ class Key extends Thing implements Wearable {
     public Key(String description, String id) {
         super(id);
         this.description = description;
-    }
-
-    @Override
-    public Iterable<GameAction> getActions(GameEngine engine) {
-        return engine.getActions(this);
-    }
-}
-
-interface Switch {
-}
-
-class LightSwitch extends Thing implements Switch {
-    public LightSwitch(String id) {
-        super(id);
-    }
-
-    @Override
-    public Iterable<GameAction> getActions(GameEngine engine) {
-        return engine.getActions(this);
-    }
-}
-
-class Light extends Thing {
-    public Light(String id) {
-        super(id);
     }
 
     @Override

@@ -16,14 +16,6 @@ public class GameEngine {
 
     public Iterable<Thing> getVisibleThings() {
 
-        if (currentState.getPlayerStandsAt() != null){
-            //if player stands at a thing then he focuses just on that thing
-            if (currentState.getPlayerStandsAt() instanceof Container)
-                //if that thing is something more complex then player sees its content
-                return  ((Container) currentState.getPlayerStandsAt()).getThings();
-            //if the thing itself is just something simple enough then the player sees the whole thing only
-            return Arrays.asList((Thing)currentState.getPlayerStandsAt());
-        }
         if (currentState.getPlayerStandsIn() != null) {
             //if player stands in a container then he can see anything in that container
             return currentState.getPlayerStandsIn().getThings();
@@ -35,8 +27,6 @@ public class GameEngine {
     public void printCurrentState() {
         if (currentState.getPlayerStandsIn() != null) {
             message("You are in "+currentState.getPlayerStandsIn().toString());
-        } else if (currentState.getPlayerStandsAt() != null) {
-            message("You are at "+currentState.getPlayerStandsAt().toString());
         }
     }
 
@@ -49,8 +39,6 @@ public class GameEngine {
 
     private Container getCurrentContainer() {
         if (currentState.getPlayerStandsIn() != null) return currentState.getPlayerStandsIn();
-        if (currentState.getPlayerStandsAt() instanceof Container)
-            return (Container) currentState.getPlayerStandsAt();
         return null;
     }
 
@@ -63,7 +51,10 @@ public class GameEngine {
 
         List<GameAction> result = new ArrayList<>();
         for (Thing thing : visibleThings) {
-            thing.getActions(this).forEach(result::add);
+            Iterable<GameAction> actions = thing.getActions(this);
+            for (GameAction action : actions) {
+                result.add(action);
+            }
         }
         for (Key key : currentState.getKeys()) {
             result.add(new Drop(key));
@@ -90,17 +81,9 @@ public class GameEngine {
 
     public Iterable<GameAction> getActions(Room room) {
         List<GameAction> result = new ArrayList<>();
-        if (currentState.getPlayerStandsIn() != room)
-            result.add(new Goto());
         return result;
     }
 
-    public Iterable<GameAction> getActions(Table table) {
-        List<GameAction> result = new ArrayList<>();
-        if (currentState.getPlayerStandsAt() == table)
-            result.add(new Goto());
-        return result;
-    }
 
     public Iterable<GameAction> getActions(Key key) {
         List<GameAction> result = new ArrayList<>();
@@ -110,15 +93,6 @@ public class GameEngine {
         return result;
     }
 
-    public Iterable<GameAction> getActions(LightSwitch lightSwitch) {
-        List<GameAction> result = new ArrayList<>();
-        return result;
-    }
-
-    public Iterable<GameAction> getActions(Light light) {
-        List<GameAction> result = new ArrayList<>();
-        return result;
-    }
 
     public void apply(OpenDoor openDoor) {
         if (openDoor.getDoor().getLockState()== DoorLockState.Locked) {
@@ -164,10 +138,6 @@ public class GameEngine {
         } else {
             message("You need a key");
         }
-    }
-
-    public void apply(Goto aGoto) {
-
     }
 
     public void apply(Grab grab) {

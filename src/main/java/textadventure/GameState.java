@@ -6,7 +6,6 @@ import java.util.List;
 public class GameState {
     private GameWorld world;
     private StandIn playerStandsIn;
-    private StandAt playerStandsAt;
     private List<Key> keys = new ArrayList<>();
 
     public GameState(GameWorld world, StandIn standsIn){
@@ -20,14 +19,6 @@ public class GameState {
 
     public void setPlayerStandsIn(StandIn playerStandsIn) {
         this.playerStandsIn = playerStandsIn;
-    }
-
-    public StandAt getPlayerStandsAt() {
-        return playerStandsAt;
-    }
-
-    public void setPlayerStandsAt(StandAt playerStandsAt) {
-        this.playerStandsAt = playerStandsAt;
     }
 
     public GameWorld getWorld() {

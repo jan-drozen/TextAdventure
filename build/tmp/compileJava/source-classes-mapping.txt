@@ -1,7 +1,5 @@
 textadventure/GameWorld.java
  textadventure.GameWorld
-textadventure/WorldBuilder.java
- textadventure.WorldBuilder
 textadventure/GameState.java
  textadventure.GameState
 textadventure/Main.java
@@ -13,7 +11,6 @@ textadventure/Game.java
  textadventure.Game
  textadventure.GameAction
  textadventure.GoThrough
- textadventure.Goto
  textadventure.Grab
  textadventure.KeyDoorAction
  textadventure.LockDoor
@@ -22,6 +19,8 @@ textadventure/Game.java
  textadventure.UnlockDoor
 textadventure/GameEngine.java
  textadventure.GameEngine
+textadventure/WorldBuilder.java
+ textadventure.WorldBuilder
 textadventure/Model.java
  textadventure.AbstractContainer
  textadventure.Container
@@ -29,15 +28,9 @@ textadventure/Model.java
  textadventure.DoorLockState
  textadventure.DoorState
  textadventure.Key
- textadventure.Light
- textadventure.LightCondition
- textadventure.LightSwitch
  textadventure.Model
  textadventure.Room
  textadventure.Space
- textadventure.StandAt
  textadventure.StandIn
- textadventure.Switch
- textadventure.Table
  textadventure.Thing
  textadventure.Wearable

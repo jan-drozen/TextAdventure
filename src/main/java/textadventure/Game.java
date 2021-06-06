@@ -4,7 +4,6 @@ public class Game {
 }
 
 abstract class GameAction {
-    String description;
     abstract void apply(GameEngine engine);
 }
 
@@ -104,14 +103,6 @@ class UnlockDoor extends KeyDoorAction {
     public String toString() {
         return "Unlock "+door.toString();
     }
-
-    @Override
-    void apply(GameEngine engine) {
-        engine.apply(this);
-    }
-}
-
-class Goto extends GameAction {
 
     @Override
     void apply(GameEngine engine) {
